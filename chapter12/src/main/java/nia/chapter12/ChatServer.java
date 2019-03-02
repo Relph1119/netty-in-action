@@ -15,16 +15,17 @@ import java.net.InetSocketAddress;
 
 /**
  * Listing 12.4 Bootstrapping the server
- *
+ * 启动服务器类
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class ChatServer {
-    private final ChannelGroup channelGroup =
-        new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
+    // 创建ChannelGroup，保存所有已经连接的WebSocket Channel
+    private final ChannelGroup channelGroup = new DefaultChannelGroup(ImmediateEventExecutor.INSTANCE);
     private final EventLoopGroup group = new NioEventLoopGroup();
     private Channel channel;
 
     public ChannelFuture start(InetSocketAddress address) {
+        // 创建启动服务器类
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(group)
              .channel(NioServerSocketChannel.class)
@@ -35,11 +36,14 @@ public class ChatServer {
         return future;
     }
 
-    protected ChannelInitializer<Channel> createInitializer(
-        ChannelGroup group) {
+    // 创建ChatServerInitializer
+    protected ChannelInitializer<Channel> createInitializer(ChannelGroup group) {
         return new ChatServerInitializer(group);
     }
 
+    /**
+     * 关闭服务器，并释放所有资源
+     */
     public void destroy() {
         if (channel != null) {
             channel.close();
@@ -49,14 +53,16 @@ public class ChatServer {
     }
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 1) {
+        /*if (args.length != 1) {
             System.err.println("Please give port as argument");
             System.exit(1);
-        }
-        int port = Integer.parseInt(args[0]);
+        }*/
+        int port = 9999;
+        /*if(args[0] == null){
+            port = Integer.parseInt(args[0]);
+        }*/
         final ChatServer endpoint = new ChatServer();
-        ChannelFuture future = endpoint.start(
-                new InetSocketAddress(port));
+        ChannelFuture future = endpoint.start(new InetSocketAddress(port));
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
             public void run() {
