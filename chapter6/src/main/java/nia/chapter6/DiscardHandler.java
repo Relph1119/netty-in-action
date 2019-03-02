@@ -7,7 +7,7 @@ import io.netty.util.ReferenceCountUtil;
 
 /**
  * Listing 6.1 Releasing message resources
- *
+ * 释放消息资源，扩展了ChannelInboundHandlerAdapter
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 @Sharable
@@ -15,6 +15,7 @@ public class DiscardHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        // 丢弃已接收的消息
         ReferenceCountUtil.release(msg);
     }
 

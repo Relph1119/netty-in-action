@@ -7,13 +7,14 @@ import io.netty.util.ReferenceCountUtil;
 
 /**
  * Listing 6.3 Consuming and releasing an inbound message
- *
+ * 消费并释放入站消息，扩展了ChannelInboundHandlerAdapter
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 @Sharable
 public class DiscardInboundHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        // 通过调用 ReferenceCountUtil.release()方法释放资源
         ReferenceCountUtil.release(msg);
     }
 }

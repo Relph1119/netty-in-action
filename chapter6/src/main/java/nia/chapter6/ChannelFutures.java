@@ -12,6 +12,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
  * Created by kerr.
  *
  * Listing 6.13 Adding a ChannelFutureListener to a ChannelFuture
+ * 添加ChannelFutureListener到ChannelFuture
  */
 public class ChannelFutures {
     private static final Channel CHANNEL_FROM_SOMEWHERE = new NioSocketChannel();
