@@ -10,7 +10,7 @@ import io.netty.handler.codec.http.HttpServerCodec;
 
 /**
  * Listing 11.4 Automatically compressing HTTP messages
- *
+ * 自动压缩HTTP消息
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
@@ -24,9 +24,10 @@ public class HttpCompressionInitializer extends ChannelInitializer<Channel> {
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         if (isClient) {
+            // 如果是客户端，则添加HttpClientCodec编解码器
             pipeline.addLast("codec", new HttpClientCodec());
-            pipeline.addLast("decompressor",
-            new HttpContentDecompressor());
+            // 并添加HttpContentDecompressor压缩器
+            pipeline.addLast("decompressor", new HttpContentDecompressor());
         } else {
             pipeline.addLast("codec", new HttpServerCodec());
             pipeline.addLast("compressor",

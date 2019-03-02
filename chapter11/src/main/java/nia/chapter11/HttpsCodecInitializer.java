@@ -12,7 +12,7 @@ import javax.net.ssl.SSLEngine;
 
 /**
  * Listing 11.5 Using HTTPS
- *
+ * 使用HTTPS
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
@@ -28,9 +28,11 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
     protected void initChannel(Channel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
         SSLEngine engine = context.newEngine(ch.alloc());
+        // 将SslHandler添加到ChannelPipeline中使用HTTPS
         pipeline.addFirst("ssl", new SslHandler(engine));
 
         if (isClient) {
+            // 如果是客户端，添加HttpClientCodec编解码器
             pipeline.addLast("codec", new HttpClientCodec());
         } else {
             pipeline.addLast("codec", new HttpServerCodec());
