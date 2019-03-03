@@ -9,7 +9,7 @@ import java.net.InetSocketAddress;
 
 /**
  * Listing 13.8 LogEventMonitor
- *
+ * 消息监控
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
 public class LogEventMonitor {
@@ -27,6 +27,7 @@ public class LogEventMonitor {
                 protected void initChannel(Channel channel)
                     throws Exception {
                     ChannelPipeline pipeline = channel.pipeline();
+                    // 将LogEventDecoder和LogEventHandler添加到ChannelPipeline中
                     pipeline.addLast(new LogEventDecoder());
                     pipeline.addLast(new LogEventHandler());
                 }
@@ -35,6 +36,7 @@ public class LogEventMonitor {
     }
 
     public Channel bind() {
+        // 绑定Channel，注意DatagramChannel是无连接的
         return bootstrap.bind().syncUninterruptibly().channel();
     }
 
@@ -47,8 +49,8 @@ public class LogEventMonitor {
             throw new IllegalArgumentException(
             "Usage: LogEventMonitor <port>");
         }
-        LogEventMonitor monitor = new LogEventMonitor(
-            new InetSocketAddress(Integer.parseInt(args[0])));
+        // 构建一个LogEventMonitor
+        LogEventMonitor monitor = new LogEventMonitor(new InetSocketAddress(Integer.parseInt(args[0])));
         try {
             Channel channel = monitor.bind();
             System.out.println("LogEventMonitor running");
