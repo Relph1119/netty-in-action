@@ -1,3 +1,8 @@
+# 《Netty实战》阅读笔记
+&emsp;&emsp;本书中介绍的Netty是一款用于快速开发高性能的网络应用程序的Java框架，有较高的Java网络编程API的封装性。  
+&emsp;&emsp;个人感觉Netty是一个管道过滤器的架构模式，采用Channel->ChannelCodec->ChannelHandler，整套封装在ChannelPipeline中，最后通过Bootstrap执行。  
+&emsp;&emsp;本书的正文和代码注释，翻译比较生硬，建议需要采用SpringWebflux的同学最好看本书的英文原版，笔者为理解该书中内容，对照着原版阅读。  
+** 以下是英文原版代码的github中的REMADE.md **  
 This Repository contains the source-code for all chapters of the book [Netty in Action](http://manning.com/maurer)
 by Norman Maurer and Marvin Allen Wolfthal.
 
